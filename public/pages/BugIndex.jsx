@@ -8,15 +8,18 @@ const { useState, useEffect } = React
 export function BugIndex() {
     const [bugs, setBugs] = useState(null)
     const [filterBy, setFilterBy] = useState(bugService.getDefaultFilter())
-    const [dynamicHref, setDynamicHref] = useState('');
+    const [sortBy, setSortBy] = useState('')
+    const [sortDir, setSortDir] = useState(null)
+    // const [dynamicHref, setDynamicHref] = useState('');
 
 
     useEffect(() => {
         loadBugs()
-    }, [filterBy])
+    }, [filterBy, sortBy, sortDir])
 
     function loadBugs() {
-        bugService.query(filterBy)
+        // console.log('sortDir',sortDir)
+        bugService.query(filterBy, sortBy, sortDir)
             .then(setBugs)
             .catch(err => console.log('err:', err))
     }
@@ -77,29 +80,36 @@ export function BugIndex() {
 
     function onSetFilter(filterBy) {
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy }))
-
     }
 
-    function onDowloadPDF() {
-        console.log('pdf trial')
-        const filePath = bugService.getBugsPDF()
-            .then((filePath) => {
-                console.log('filePath', filePath)
-                setDynamicHref('../../' + filePath)
-            })
-            .catch(err => console.log('err:', err))
-        
+    function onSetSortBy(sortKey) {
+        setSortBy(sortKey)
     }
 
-    const { txt, minSeverity } = filterBy
+    function onSetSortDir(dir) {
+        setSortDir(dir)
+    }
+
+    // function onDowloadPDF() {
+    //     console.log('pdf trial')
+    //     const filePath = bugService.getBugsPDF()
+    //         .then((filePath) => {
+    //             console.log('filePath', filePath)
+    //             setDynamicHref('../../' + filePath)
+    //         })
+    //         .catch(err => console.log('err:', err))
+
+    // }
+
+    const { txt, minSeverity, label } = filterBy
 
     return (
         <main>
             <h3>Bugs App</h3>
-            <main>
-                <BugFilter filterBy={{ txt, minSeverity }} onSetFilter={onSetFilter} />
-                <button onClick={onAddBug}>Add Bug ⛐</button>
-                <a href="#" onClick={onDowloadPDF} download="BugList.pdf">Download</a>
+            <main className='bug-index'>
+                <BugFilter filterBy={{ txt, minSeverity, label }} onSetFilter={onSetFilter} onSetSortBy={onSetSortBy} onSetSortDir={onSetSortDir} sortBy={sortBy} sortDir={sortDir} />
+                <button className="add" onClick={onAddBug}>Add Bug ⛐</button>
+                {/* {<a href="#" onClick={onDowloadPDF} download="BugList.pdf">Download</a>} */}
 
                 <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />
             </main>

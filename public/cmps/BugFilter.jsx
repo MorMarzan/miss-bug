@@ -1,10 +1,12 @@
 
-const { useState, useEffect } = React
+const { useState, useEffect, Fragment } = React
 
 
-export function BugFilter({ filterBy, onSetFilter }) {
+export function BugFilter({ filterBy, onSetFilter, onSetSortDir, onSetSortBy, sortBy, sortDir }) {
 
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
+    // const [sortByToEdit, setSortByToEdit] = useState(sortBy)
+    // const [sortDirToEdit, setSortDirToEdit] = useState(sortDir)
 
     useEffect(() => {
         onSetFilter(filterByToEdit)
@@ -36,9 +38,20 @@ export function BugFilter({ filterBy, onSetFilter }) {
         setFilterByToEdit(prevFilter => ({ ...prevFilter, [field]: value }))
     }
 
-    const { txt, minSeverity } = filterByToEdit
+    function handleSortBy({ target }) {
+        if (!sortDir) onSetSortDir(1)
+        onSetSortBy(target.value)
+    }
+
+    function handleSortDir({ target }) {
+        const DirVal = target.checked ? 1 : -1
+        // console.log('DirVal',DirVal)
+        onSetSortDir(DirVal)
+    }
+
+    const { txt, minSeverity, label } = filterByToEdit
     return (
-        <section className="Bug-filter main-layout full">
+        <section className="bug-filter main-layout full">
             <h2>Filter Our Bugs</h2>
             <form onSubmit={onSetFilterBy} >
                 <label htmlFor="txt">Text: </label>
@@ -46,6 +59,26 @@ export function BugFilter({ filterBy, onSetFilter }) {
 
                 <label htmlFor="minSeverity">Min Severity: </label>
                 <input value={minSeverity || ''} onChange={handleChange} type="number" id="minSeverity" name="minSeverity" />
+
+                <label htmlFor="label">Label:</label>
+                <select name="label" id="label" onChange={handleChange} defaultValue={label}>
+                    <option disabled value="">Choose label</option>
+                    <option value="">All</option>
+                    <option value="critical">Critical</option>
+                    <option value="need-CR">Need CR</option>
+                    <option value="dev-branch">Dev branch</option>
+                </select>
+
+                <label htmlFor="sortBy">Sort By:</label>
+                <select name="sortBy" id="sortBy" onChange={handleSortBy} defaultValue={sortBy}>
+                    <option disabled value="">Choose option</option>
+                    <option value="title">Title</option>
+                    <option value="severity">Severity</option>
+                    <option value="createdAt">Created At</option>
+                </select>
+
+                <label htmlFor="SortDir">Ascending </label>
+                <input disabled={!sortBy} checked={sortDir === 1} onChange={handleSortDir} type="checkbox" id="SortDir" name="SortDir" />
 
                 <button>Submit</button>
             </form>

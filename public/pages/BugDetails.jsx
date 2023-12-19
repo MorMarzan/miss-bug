@@ -26,6 +26,9 @@ export function BugDetails() {
         <h4>{bug.title}</h4>
         <p>Description: {bug.description}</p>
         <p>Severity: <span>{bug.severity}</span></p>
+        <p>
+            Labels: <span>{bug.labels.length > 0 ? bug.labels.join(', ') : 'None'}</span>
+        </p>
         <Link to="/bug">Back to List</Link>
     </div>
 

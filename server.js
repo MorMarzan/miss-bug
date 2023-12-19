@@ -9,25 +9,26 @@ const app = express()
 // Express Config:
 app.use(express.static('public'))
 app.use(cookieParser())
-
+app.use(express.json())
 
 // Express Routing:
-// app.get('/puki', (req, res) => {
-//     let visitedBugs = req.cookies.visitedBugs || 0
-//     res.cookie('visitedBugs', ++visitedBugs, { maxAge: 1000 * 5 })
-//     res.send(`<h1>Hello Puki ${visitedBugs}</h1>`)
-// })
-
-
-// app.get('/nono', (req, res) => res.redirect('/puki'))
-
-
 app.get('/', (req, res) =>
     res.send('Hello from bug app'))
 
 // Get bugs (READ)
 app.get('/api/bug', (req, res) => {
-    bugService.query()
+    // console.log('server get list*********************')
+    // console.log('req.query', req.query)
+    // loggerService.info(`list bugs server.js: req.query ${JSON.stringify(req.query)}`)
+    const { txt = '', minSeverity = 0, label = '', sortBy = '', sortDir = 1 } = req.query
+    const filterBy = {
+        txt,
+        minSeverity,
+        label,
+        // pageIdx
+    }
+
+    bugService.query(filterBy, sortBy, sortDir)
         .then(bugs => {
             res.send(bugs)
         })
@@ -37,18 +38,17 @@ app.get('/api/bug', (req, res) => {
         })
 })
 
+// Add bug (CREATE)
+app.post('/api/bug', (req, res) => {
+    const { title, description, severity, labels } = req.body
 
-// Get bug (READ)
-app.get('/api/bug/save', (req, res) => {
-    const { title, description, severity, _id } = req.query
     const bugToSave = {
         title,
         description,
-        severity: +severity,
-        //the following will be undefined
-        _id
+        severity, //auto parse to num
+        labels: labels || []
     }
-    // try here for update, for save with no _id and createAt- http://127.0.0.1:3030/api/bug/save?_id=&title=%22&description=&severity=
+
     bugService.save(bugToSave)
         .then(bug => res.send(bug))
         .catch((err) => {
@@ -57,26 +57,42 @@ app.get('/api/bug/save', (req, res) => {
         })
 })
 
+// Edit bug (UPDATE)
+app.put('/api/bug', (req, res) => {
+    const { _id, title, description, severity, labels } = req.body
+    const bugToSave = {
+        _id,
+        title,
+        description,
+        severity, //auto parse to num
+        labels
+    }
+    bugService.save(bugToSave)
+        .then(bug => res.send(bug))
+        .catch((err) => {
+            loggerService.error('Cannot save bug', err)
+            res.status(400).send('Cannot save bug')
+        })
+})
 
-//dowload pdf
+//dowload pdf - backend only
 app.get('/api/bug/download', (req, res) => {
     const fileName = 'BugsList.pdf'
     bugService.query()
         .then(bugs => {
             pdfService.buildBugsPDF(bugs, fileName)
-            .then(() => {
-                console.log('download finish')
-                res.send(fileName)
-                return fileName
-            })
-            
+                .then(() => {
+                    console.log('download finish')
+                    res.send(fileName)
+                    return fileName
+                })
+
         })
         .catch(err => {
             loggerService.error('Cannot dowload bugs', err)
             res.status(400).send('Cannot dowload bugs')
         })
 })
-
 
 // Get bug (READ)
 app.get('/api/bug/:id', (req, res) => {
@@ -98,7 +114,7 @@ app.get('/api/bug/:id', (req, res) => {
 })
 
 // Remove bug (DELETE)
-app.get('/api/bug/:id/remove', (req, res) => {
+app.delete('/api/bug/:id', (req, res) => {
     const bugId = req.params.id
     bugService.remove(bugId)
         .then(() => res.send(bugId))
@@ -107,7 +123,6 @@ app.get('/api/bug/:id/remove', (req, res) => {
             res.status(400).send('Cannot remove bug')
         })
 })
-
 
 const port = 3030
 app.listen(port, () =>

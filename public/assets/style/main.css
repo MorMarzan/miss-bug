@@ -84,3 +84,15 @@ nav a:hover {
 .bug-preview span {
     color: gold;
 }
+
+.bug-filter form {
+    display: grid;
+    justify-items: left;
+    grid-template-columns: auto 1fr;
+    gap: 10px;
+    margin-block-end: 10px;
+}
+
+.bug-index .add {
+    width: 100%;
+}

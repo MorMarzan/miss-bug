@@ -3,8 +3,6 @@ import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 
 const BASE_URL = '/api/bug/'
-// const STORAGE_KEY = 'bugDB'
-// _createBugs()
 
 export const bugService = {
     query,
@@ -16,51 +14,39 @@ export const bugService = {
 }
 
 
-function query(filterBy) {
-    return axios.get(BASE_URL).then(res => res.data)
-        .then(bugs => {
-            if (filterBy.txt) {
-                const regExp = new RegExp(filterBy.txt, 'i')
-                bugs = bugs.filter(bug => regExp.test(bug.title) || regExp.test(bug.description))
-            }
-            if (filterBy.minSeverity) {
-                bugs = bugs.filter(bug => bug.severity >= filterBy.minSeverity)
-            }
-            return bugs
-        })
+function query(filterBy, sortBy = 'severity', sortDir = 1) {
+    // console.log('sortDir server public', sortDir)
+    //server side filtering - good for big data!
+    return axios.get(BASE_URL, { params: { ...filterBy, sortBy, sortDir } }).then(res => res.data)
 }
+
 function getById(bugId) {
+    // console.log('hey from getById service front')
     return axios.get(BASE_URL + bugId).then(res => res.data)
-    // return storageService.get(STORAGE_KEY, bugId)
 }
 
 function remove(bugId) {
-    return axios.get(BASE_URL + bugId + '/remove')
-    // return storageService.remove(STORAGE_KEY, bugId)
+    // console.log('hey from remove service front')
+    return axios.delete(BASE_URL + bugId).then(res => res.data)
 }
 
 function save(bug) {
-    const url = BASE_URL + 'save'
-    let queryParams = `?title=${bug.title}&description=${bug.description}&severity=${bug.severity}`
     if (bug._id) {
-        queryParams += `&_id=${bug._id}`
+        // console.log('hey from update-save service front')
+        return axios.put(BASE_URL, bug).then(res => res.data)
     }
-    return axios.get(url + queryParams).then((res) => res.data)
-    // if (bug._id) {
-    //     return storageService.put(STORAGE_KEY, bug)
-    // } else {
-    //     return storageService.post(STORAGE_KEY, bug)
-    // }
+    // console.log('hey from create-save service front')
+    return axios.post(BASE_URL, bug).then(res => res.data)
 }
 
 function getDefaultFilter() {
-    return { txt: '', minSeverity: '', createdAt: '' }
+    return { txt: '', minSeverity: '', createdAt: '', label: '' }
 }
 
 function getBugsPDF() {
     return axios.get(BASE_URL + 'download')
         .then((fileName) => {
-            console.log('fileName',fileName)
+            console.log('fileName', fileName)
             return fileName.data
         })
 }
