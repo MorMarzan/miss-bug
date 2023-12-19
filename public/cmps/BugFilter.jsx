@@ -1,12 +1,10 @@
 
-const { useState, useEffect, Fragment } = React
+const { useState, useEffect } = React
 
 
 export function BugFilter({ filterBy, onSetFilter, onSetSortDir, onSetSortBy, sortBy, sortDir }) {
 
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
-    // const [sortByToEdit, setSortByToEdit] = useState(sortBy)
-    // const [sortDirToEdit, setSortDirToEdit] = useState(sortDir)
 
     useEffect(() => {
         onSetFilter(filterByToEdit)
@@ -45,7 +43,6 @@ export function BugFilter({ filterBy, onSetFilter, onSetSortDir, onSetSortBy, so
 
     function handleSortDir({ target }) {
         const DirVal = target.checked ? 1 : -1
-        // console.log('DirVal',DirVal)
         onSetSortDir(DirVal)
     }
 

@@ -15,27 +15,21 @@ export const bugService = {
 
 
 function query(filterBy, sortBy = 'severity', sortDir = 1) {
-    // console.log('sortDir server public', sortDir)
-    //server side filtering - good for big data!
     return axios.get(BASE_URL, { params: { ...filterBy, sortBy, sortDir } }).then(res => res.data)
 }
 
 function getById(bugId) {
-    // console.log('hey from getById service front')
     return axios.get(BASE_URL + bugId).then(res => res.data)
 }
 
 function remove(bugId) {
-    // console.log('hey from remove service front')
     return axios.delete(BASE_URL + bugId).then(res => res.data)
 }
 
 function save(bug) {
     if (bug._id) {
-        // console.log('hey from update-save service front')
         return axios.put(BASE_URL, bug).then(res => res.data)
     }
-    // console.log('hey from create-save service front')
     return axios.post(BASE_URL, bug).then(res => res.data)
 }
 

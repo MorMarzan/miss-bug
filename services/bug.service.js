@@ -13,10 +13,6 @@ const bugs = utilService.readJsonFile('data/bug.json')
 
 
 function query(filterBy, sortBy, sortDir) {
-    console.log('service query********************')
-    // console.log('filterBy recieved', filterBy)
-    // console.log('sortBy recieved', sortBy)
-    // console.log('sortDir recieved', sortDir)
     let bugsToReturn = bugs
     if (filterBy.txt) {
         const regExp = new RegExp(filterBy.txt, 'i')

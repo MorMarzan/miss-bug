@@ -18,7 +18,6 @@ export function BugIndex() {
     }, [filterBy, sortBy, sortDir])
 
     function loadBugs() {
-        // console.log('sortDir',sortDir)
         bugService.query(filterBy, sortBy, sortDir)
             .then(setBugs)
             .catch(err => console.log('err:', err))

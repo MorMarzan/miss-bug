@@ -17,8 +17,6 @@ app.get('/', (req, res) =>
 
 // Get bugs (READ)
 app.get('/api/bug', (req, res) => {
-    // console.log('server get list*********************')
-    // console.log('req.query', req.query)
     // loggerService.info(`list bugs server.js: req.query ${JSON.stringify(req.query)}`)
     const { txt = '', minSeverity = 0, label = '', sortBy = '', sortDir = 1 } = req.query
     const filterBy = {
