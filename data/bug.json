@@ -1,77 +1,42 @@
 [
   {
-    "title": "a",
-    "description": "aaa",
-    "severity": 8,
-    "labels": [],
-    "createdAt": 1703010914350,
-    "_id": "8ke5y"
+      "_id": "abc123",
+      "title": "Cannot save a Car",
+      "description": "problem when clicking Save",
+      "severity": 3,
+      "createdAt": 1542107359454,
+      "labels": ["critical", "need-CR", "dev-branch"]
   },
   {
-    "title": "Shmolik",
-    "description": "Easy going one",
-    "severity": 0.5,
-    "labels": [],
-    "createdAt": 1702996679269,
-    "_id": "PQsqJ"
+      "_id": "def456",
+      "title": "Error in Dashboard",
+      "description": "dashboard not loading",
+      "severity": 2,
+      "createdAt": 1542107360000,
+      "labels": ["critical"]
   },
   {
-    "_id": "mno345",
-    "title": "Performance Degradation",
-    "description": "system slowdowns",
-    "severity": 3,
-    "createdAt": 1542107363000,
-    "labels": [
-      "need-CR"
-    ]
+      "_id": "ghi789",
+      "title": "Login Issue",
+      "description": "unable to login",
+      "severity": 1,
+      "createdAt": 1542107361000,
+      "labels": ["dev-branch"]
   },
   {
-    "title": "new!!!!!",
-    "description": "create rest test",
-    "severity": 1,
-    "labels": [
-      "fatal"
-    ],
-    "createdAt": 1703005869647,
-    "_id": "G93tw"
+      "_id": "jkl012",
+      "title": "Missing Features",
+      "description": "features not available",
+      "severity": 2,
+      "createdAt": 1542107362000,
+      "labels": []
   },
   {
-    "title": "new b",
-    "description": "create rest test",
-    "severity": 1,
-    "labels": [
-      "fatal",
-      "dev-branch"
-    ],
-    "createdAt": 1703006593716,
-    "_id": "FdAI9"
-  },
-  {
-    "_id": "jkl012",
-    "title": "Missing Features",
-    "description": "features not available",
-    "severity": 2,
-    "createdAt": 1542107362000,
-    "labels": []
-  },
-  {
-    "_id": "ghi789",
-    "title": "Login Issue",
-    "description": "unable to login",
-    "severity": 1,
-    "createdAt": 1542107361000,
-    "labels": [
-      "dev-branch"
-    ]
-  },
-  {
-    "_id": "def456",
-    "title": "Error in Dashboard",
-    "description": "dashboard not loading",
-    "severity": 100000000000000,
-    "createdAt": 1542107360000,
-    "labels": [
-      "critical"
-    ]
+      "_id": "mno345",
+      "title": "Performance Degradation",
+      "description": "system slowdowns",
+      "severity": 3,
+      "createdAt": 1542107363000,
+      "labels": ["need-CR"]
   }
 ]
