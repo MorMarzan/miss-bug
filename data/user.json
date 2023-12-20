@@ -34,5 +34,19 @@
     "username": "dev",
     "_id": "3AYqX",
     "isAdmin": false
+  },
+  {
+    "username": "ram",
+    "password": "",
+    "fullname": "Ram Das",
+    "_id": "NMH4n",
+    "isAdmin": false
+  },
+  {
+    "username": "muki",
+    "password": "",
+    "fullname": "",
+    "_id": "aMu2W",
+    "isAdmin": false
   }
 ]

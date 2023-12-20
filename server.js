@@ -40,12 +40,13 @@ app.get('/api/bug/download', (req, res) => {
 // Get bugs (READ)
 app.get('/api/bug', (req, res) => {
     // loggerService.info(`list bugs server.js: req.query ${JSON.stringify(req.query)}`)
-    const { txt = '', minSeverity = 0, label = '', pageIdx, sortBy = '', sortDir = 1 } = req.query
+    const { txt = '', minSeverity = 0, label = '', pageIdx, sortBy = '', sortDir = 1, creatorId = '' } = req.query
     const filterBy = {
         txt,
         minSeverity,
         label,
-        pageIdx
+        pageIdx,
+        creatorId
     }
 
     bugService.query(filterBy, sortBy, sortDir)

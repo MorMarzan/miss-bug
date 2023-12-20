@@ -29,6 +29,9 @@ function query(filterBy = {}, sortBy, sortDir) {
         const startIdx = filterBy.pageIdx * PAGE_SIZE
         bugsToReturn = bugsToReturn.slice(startIdx, startIdx + PAGE_SIZE)
     }
+    if (filterBy.creatorId) {
+        bugsToReturn = bugsToReturn.filter(({creator}) => creator._id === filterBy.creatorId)
+    }
     if (sortBy === 'severity') { //numeric
         bugsToReturn.sort((b1, b2) => (b1.severity - b2.severity) * sortDir)
     }

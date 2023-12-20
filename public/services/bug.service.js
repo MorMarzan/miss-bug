@@ -38,7 +38,7 @@ function save(bug) {
 }
 
 function getDefaultFilter() {
-    return { txt: '', minSeverity: '', label: '', pageIdx: 0 }
+    return { txt: '', minSeverity: '', label: '', pageIdx: 0, creatorId: '' }
 }
 
 function getBugsPDF() {

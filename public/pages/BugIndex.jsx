@@ -3,6 +3,7 @@ import { utilService } from '../services/util.service.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { BugList } from '../cmps/BugList.jsx'
 import { BugFilter } from "../cmps/BugFilter.jsx"
+import { userService } from '../services/user.service.js'
 
 const { useState, useEffect, useRef } = React
 
@@ -13,12 +14,21 @@ export function BugIndex() {
     const [sortDir, setSortDir] = useState(null)
     const [maxPage, setMaxPage] = useState(null)
     const debounceOnSetFilter = useRef(utilService.debounce(onSetFilter, 500))
-    // const [dynamicHref, setDynamicHref] = useState('');
-
+    // const [dynamicHref, setDynamicHref] = useState('')
+    const [user, setUser] = useState(userService.getLoggedinUser())
+    const [userBugIds, setUserBugIds] = useState(null)
 
     useEffect(() => {
         loadBugs()
     }, [filterBy, sortBy, sortDir])
+    
+    useEffect(() => {
+        loadUserBugs()
+    }, [user])
+
+    // useEffect(() => {
+    //     setUser(userService.getLoggedinUser())
+    // }, [user]) //how to listen to changes in session storage?
 
     function loadBugs() {
         bugService.query(filterBy, sortBy, sortDir)
@@ -28,6 +38,19 @@ export function BugIndex() {
                 setMaxPage(newMaxPage)
             })
             // .then(setBugs)
+            .catch(err => console.log('err:', err))
+    }
+
+    function loadUserBugs() {
+        if (!user) {
+            setUserBugIds([])
+            return
+        }
+        bugService.query({creatorId: user._id})
+            .then(({ bugs }) => {
+                const newUserBugIds = bugs.map(bug => bug._id)
+                setUserBugIds(newUserBugIds)
+            })
             .catch(err => console.log('err:', err))
     }
 
@@ -150,7 +173,7 @@ export function BugIndex() {
                 <button className="add" onClick={onAddBug}>Add Bug ⛐</button>
                 {/* {<a href="#" onClick={onDowloadPDF} download="BugList.pdf">Download</a>} */}
 
-                <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />
+                <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} userBugIds={userBugIds}/>
 
             </main>
         </main>
