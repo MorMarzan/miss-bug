@@ -11,6 +11,7 @@ export function BugIndex() {
     const [filterBy, setFilterBy] = useState(bugService.getDefaultFilter())
     const [sortBy, setSortBy] = useState('')
     const [sortDir, setSortDir] = useState(null)
+    const [maxPage, setMaxPage] = useState(null)
     const debounceOnSetFilter = useRef(utilService.debounce(onSetFilter, 500))
     // const [dynamicHref, setDynamicHref] = useState('');
 
@@ -21,7 +22,11 @@ export function BugIndex() {
 
     function loadBugs() {
         bugService.query(filterBy, sortBy, sortDir)
-            .then(({bugs}) => setBugs(bugs))
+            .then(({ bugs, maxPage: newMaxPage }) => {
+                console.log('newMaxPage',newMaxPage)
+                setBugs(bugs)
+                setMaxPage(newMaxPage)
+            })
             // .then(setBugs)
             .catch(err => console.log('err:', err))
     }
@@ -104,10 +109,12 @@ export function BugIndex() {
     // }
 
     function onChangePageIdx(diff) {
+        console.log('maxPage',maxPage)
         if (isUndefined(filterBy.pageIdx)) return
         setFilterBy(prevFilter => {
             let newPageIdx = prevFilter.pageIdx + diff
             if (newPageIdx < 0) newPageIdx = 0
+            if (newPageIdx > maxPage) newPageIdx = maxPage + 1
             return { ...prevFilter, pageIdx: newPageIdx }
         })
     }
@@ -135,7 +142,7 @@ export function BugIndex() {
                 <section className="pagination">
                     <button onClick={() => onChangePageIdx(1)}>+</button>
                     {pageIdx + 1 || 'No Pagination'}
-                    <button onClick={() => onChangePageIdx(-1)} >-</button>
+                    <button onClick={() => onChangePageIdx(-1)}>-</button>
                     <button onClick={onTogglePagination}>Toggle pagination</button>
                 </section>
 
