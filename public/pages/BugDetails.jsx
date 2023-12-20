@@ -30,7 +30,7 @@ export function BugDetails() {
         <p>
             Labels: <span>{bug.labels.length > 0 ? bug.labels.join(', ') : 'None'}</span>
         </p>
-        <p>Created at: <span>{utilService.formatDateTime(bug.createdAt)}</span></p>
+        <p>Created at: <span>{utilService.formatTimestamp(bug.createdAt)}</span></p>
         <Link to="/bug">Back to List</Link>
     </div>
 

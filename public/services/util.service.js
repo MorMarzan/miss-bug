@@ -5,7 +5,7 @@ export const utilService = {
     loadFromStorage,
     saveToStorage,
     debounce,
-    formatDateTime
+    formatTimestamp
 }
 
 function makeId(length = 6) {
@@ -59,18 +59,47 @@ function debounce(fn, wait) {
     }
 }
 
-function formatDateTime(timestamp) {
-    const date = new Date(timestamp);
+
+function formatTimestamp(timestamp) {
+    const now = new Date()
+    const date = new Date(timestamp)
   
-    if (isNaN(date)) {
-      return 'Invalid Timestamp';
+    // Check if the date is today
+    if (
+      date.getDate() === now.getDate() &&
+      date.getMonth() === now.getMonth() &&
+      date.getFullYear() === now.getFullYear()
+    ) {
+      // Check if it is in the last 24 hours
+      const diffInMinutes = Math.floor((now - date) / (1000 * 60))
+      if (diffInMinutes < 1) {
+        return 'Now'
+      } else if (diffInMinutes < 60) {
+        const pluralS = diffInMinutes > 1 ? 's' : ''
+        return `${diffInMinutes} minute${pluralS} ago`
+      } else if (diffInMinutes < 60 * 24) {
+        const diffInHours = Math.floor(diffInMinutes / 60)
+        if (diffInHours === 1) {
+          return '1 hour ago'
+        } else if (diffInHours < 10) {
+          return `${diffInHours} hours ago`
+        }
+  
+        const hours = date.getHours().toString().padStart(2, '0')
+        const minutes = date.getMinutes().toString().padStart(2, '0')
+        return `today ${hours}:${minutes}`
+      }
+      return 'today'
     }
   
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = String(date.getFullYear()).slice(2);
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
+    // Check if it is in the same year
+    if (date.getFullYear() === now.getFullYear()) {
+      const month = date.toLocaleString('default', { month: 'short' })
+      const day = date.getDate()
+      return `${month} ${day}`
+    }
   
-    return `${day}/${month}/${year} ${hours}:${minutes}`;
+    // If it was more than a year ago, display the year only
+    const year = date.getFullYear().toString()
+    return year
   }

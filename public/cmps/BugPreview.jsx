@@ -1,5 +1,6 @@
 import { utilService } from "../services/util.service.js"
 
+
 export function BugPreview({ bug }) {
 
     return <article>
@@ -10,6 +11,6 @@ export function BugPreview({ bug }) {
         <p>
             Labels: <span>{bug.labels.length > 0 ? bug.labels.join(', ') : 'None'}</span>
         </p>
-        <p>Created at: <span>{utilService.formatDateTime(bug.createdAt)}</span></p>
+        <p>Created at: <span>{utilService.formatTimestamp(bug.createdAt)}</span></p>
     </article>
 }
