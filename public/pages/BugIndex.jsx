@@ -23,7 +23,7 @@ export function BugIndex() {
     function loadBugs() {
         bugService.query(filterBy, sortBy, sortDir)
             .then(({ bugs, maxPage: newMaxPage }) => {
-                console.log('newMaxPage',newMaxPage)
+                // console.log('newMaxPage',newMaxPage)
                 setBugs(bugs)
                 setMaxPage(newMaxPage)
             })
@@ -109,7 +109,7 @@ export function BugIndex() {
     // }
 
     function onChangePageIdx(diff) {
-        console.log('maxPage',maxPage)
+        // console.log('maxPage',maxPage)
         if (isUndefined(filterBy.pageIdx)) return
         setFilterBy(prevFilter => {
             let newPageIdx = prevFilter.pageIdx + diff

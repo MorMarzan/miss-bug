@@ -39,7 +39,7 @@ function query(filterBy, sortBy, sortDir) {
         bugsToReturn.sort((b1, b2) => (b1.title.localeCompare(b2.title) * sortDir))
     }
     const maxPage = Math.ceil(bugsToReturn.length / PAGE_SIZE)
-    console.log('maxPage from service',maxPage)
+    // console.log('maxPage from service',maxPage)
     return Promise.resolve({ bugs: bugsToReturn, maxPage })
 }
 

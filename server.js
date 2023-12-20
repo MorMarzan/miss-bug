@@ -29,7 +29,7 @@ app.get('/api/bug', (req, res) => {
 
     bugService.query(filterBy, sortBy, sortDir)
         .then(({bugs, maxPage}) => {
-            console.log('maxPage', maxPage)
+            // console.log('maxPage', maxPage)
             res.send({bugs, maxPage})
         })
         .catch(err => {
