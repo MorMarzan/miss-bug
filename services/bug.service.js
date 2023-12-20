@@ -50,20 +50,35 @@ function getById(bugId) {
     return Promise.resolve(bug)
 }
 
-function remove(bugId) {
+function remove(bugId, loggedinUser) {
     const bugIdx = bugs.findIndex(bug => bug._id === bugId)
+
+    if (!loggedinUser.isAdmin &&
+        bugs[bugIdx].creator._id !== loggedinUser._id) {
+        return Promise.reject('Not your bug')
+    }
+
     bugs.splice(bugIdx, 1)
     return _saveBugsToFile()
 }
 
-function save(bug) {
+function save(bug, loggedinUser) {
     let bugIdx = 0 // if its new unshifted bug - return the new bugs[0]. if its updated on - find its idx
+
     if (bug._id) {
-        bugIdx = bugs.findIndex(currbug => currbug._id === bug._id)
+        bugIdx = bugs.findIndex(currBug => currBug._id === bug._id)
+
+        //if user is not admin and isnt the bug creator, no update allowed
+        if (!loggedinUser.isAdmin &&
+            bugs[bugIdx].creator._id !== loggedinUser._id) {
+            return Promise.reject('Not your bug')
+        }
+
         bugs[bugIdx] = { ...bugs[bugIdx], ...bug } //so it want lose props like createdAt that is not handle after creation
     } else {
         bug.createdAt = Date.now()
         bug._id = utilService.makeId()
+        bug.creator = loggedinUser
         bugs.unshift(bug)
     }
 

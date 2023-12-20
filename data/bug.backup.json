@@ -5,7 +5,15 @@
         "description": "problem when clicking Save",
         "severity": 3,
         "createdAt": 1542107359454,
-        "labels": ["critical", "need-CR", "dev-branch"]
+        "labels": [
+            "critical",
+            "need-CR",
+            "dev-branch"
+        ],
+        "creator": {
+            "_id": "u101",
+            "fullname": "Puki Ja"
+        }
     },
     {
         "_id": "def456",
@@ -13,7 +21,13 @@
         "description": "dashboard not loading",
         "severity": 2,
         "createdAt": 1542107360000,
-        "labels": ["critical"]
+        "labels": [
+            "critical"
+        ],
+        "creator": {
+            "_id": "u101",
+            "fullname": "Puki Ja"
+        }
     },
     {
         "_id": "ghi789",
@@ -21,7 +35,13 @@
         "description": "unable to login",
         "severity": 1,
         "createdAt": 1542107361000,
-        "labels": ["dev-branch"]
+        "labels": [
+            "dev-branch"
+        ],
+        "creator": {
+            "_id": "u101",
+            "fullname": "Puki Ja"
+        }
     },
     {
         "_id": "jkl012",
@@ -29,7 +49,11 @@
         "description": "features not available",
         "severity": 2,
         "createdAt": 1542107362000,
-        "labels": []
+        "labels": [],
+        "creator": {
+            "_id": "u101",
+            "fullname": "Puki Ja"
+        }
     },
     {
         "_id": "mno345",
@@ -37,7 +61,12 @@
         "description": "system slowdowns",
         "severity": 3,
         "createdAt": 1542107363000,
-        "labels": ["need-CR"]
+        "labels": [
+            "need-CR"
+        ],
+        "creator": {
+            "_id": "u101",
+            "fullname": "Puki Ja"
+        }
     }
-  ]
-  
+]

@@ -1,33 +1,49 @@
 [
   {
-    "title": "new",
-    "description": "very new",
-    "severity": 200,
-    "labels": [],
-    "createdAt": 1703071883992,
-    "_id": "8P0Cq"
+    "title": "no logged in uesr",
+    "description": "create test",
+    "severity": 100,
+    "labels": [
+      "fatal",
+      "dev-branch"
+    ],
+    "createdAt": 1703087226717,
+    "_id": "j5E5j",
+    "creator": {
+      "_id": "u101",
+      "fullname": "Puki Ja",
+      "isAdmin": false
+    }
+  },
+  {
+    "title": "no logged in uesr",
+    "description": "create test",
+    "severity": 100,
+    "labels": [
+      "fatal",
+      "dev-branch"
+    ],
+    "createdAt": 1703086275742,
+    "_id": "o2cWo",
+    "creator": {
+      "_id": "u101",
+      "fullname": "Puki Ja",
+      "isAdmin": false
+    }
   },
   {
     "_id": "abc123",
-    "title": "Cannot save a Car",
-    "description": "problem when clicking Save",
-    "severity": 9,
+    "title": "Puki's bug rules",
+    "description": "unable to login",
+    "severity": 999,
     "createdAt": 1542107359454,
     "labels": [
-      "critical",
-      "need-CR",
       "dev-branch"
-    ]
-  },
-  {
-    "_id": "def456",
-    "title": "Error in Dashboard",
-    "description": "dashboard not loading",
-    "severity": 300,
-    "createdAt": 1542107360000,
-    "labels": [
-      "critical"
-    ]
+    ],
+    "creator": {
+      "_id": "u101",
+      "fullname": "Puki Ja"
+    }
   },
   {
     "_id": "ghi789",
@@ -37,7 +53,11 @@
     "createdAt": 1542107361000,
     "labels": [
       "dev-branch"
-    ]
+    ],
+    "creator": {
+      "_id": "u101",
+      "fullname": "Puki Ja"
+    }
   },
   {
     "_id": "jkl012",
@@ -45,7 +65,11 @@
     "description": "features not available",
     "severity": 2,
     "createdAt": 1542107362000,
-    "labels": []
+    "labels": [],
+    "creator": {
+      "_id": "u101",
+      "fullname": "Puki Ja"
+    }
   },
   {
     "_id": "mno345",
@@ -55,6 +79,10 @@
     "createdAt": 1542107363000,
     "labels": [
       "need-CR"
-    ]
+    ],
+    "creator": {
+      "_id": "u101",
+      "fullname": "Puki Ja"
+    }
   }
 ]
