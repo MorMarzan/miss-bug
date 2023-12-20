@@ -9,6 +9,7 @@ export const bugService = {
     save
 }
 
+const PAGE_SIZE = 3
 const bugs = utilService.readJsonFile('data/bug.json')
 
 
@@ -23,6 +24,10 @@ function query(filterBy, sortBy, sortDir) {
     }
     if (filterBy.label) {
         bugsToReturn = bugsToReturn.filter(bug => bug.labels.includes(filterBy.label))
+    }
+    if (filterBy.pageIdx !== undefined) {
+        const startIdx = filterBy.pageIdx * PAGE_SIZE
+        bugsToReturn = bugsToReturn.slice(startIdx, startIdx + PAGE_SIZE)
     }
     if (sortBy === 'severity') { //numeric
         bugsToReturn.sort((b1, b2) => (b1.severity - b2.severity) * sortDir)

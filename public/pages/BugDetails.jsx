@@ -3,6 +3,7 @@ const { Link, useParams } = ReactRouterDOM
 
 import { bugService } from '../services/bug.service.js'
 import { showErrorMsg } from '../services/event-bus.service.js'
+import { utilService } from '../services/util.service.js'
 
 
 export function BugDetails() {
@@ -29,6 +30,7 @@ export function BugDetails() {
         <p>
             Labels: <span>{bug.labels.length > 0 ? bug.labels.join(', ') : 'None'}</span>
         </p>
+        <p>Created at: <span>{utilService.formatDateTime(bug.createdAt)}</span></p>
         <Link to="/bug">Back to List</Link>
     </div>
 

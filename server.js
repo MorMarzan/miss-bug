@@ -17,13 +17,14 @@ app.get('/', (req, res) =>
 
 // Get bugs (READ)
 app.get('/api/bug', (req, res) => {
+    // console.log('received req be query')
     // loggerService.info(`list bugs server.js: req.query ${JSON.stringify(req.query)}`)
-    const { txt = '', minSeverity = 0, label = '', sortBy = '', sortDir = 1 } = req.query
+    const { txt = '', minSeverity = 0, label = '', pageIdx, sortBy = '', sortDir = 1 } = req.query
     const filterBy = {
         txt,
         minSeverity,
         label,
-        // pageIdx
+        pageIdx
     }
 
     bugService.query(filterBy, sortBy, sortDir)

@@ -1,15 +1,17 @@
 import { bugService } from '../services/bug.service.js'
+import { utilService } from '../services/util.service.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { BugList } from '../cmps/BugList.jsx'
 import { BugFilter } from "../cmps/BugFilter.jsx"
 
-const { useState, useEffect } = React
+const { useState, useEffect, useRef } = React
 
 export function BugIndex() {
     const [bugs, setBugs] = useState(null)
     const [filterBy, setFilterBy] = useState(bugService.getDefaultFilter())
     const [sortBy, setSortBy] = useState('')
     const [sortDir, setSortDir] = useState(null)
+    const debounceOnSetFilter = useRef(utilService.debounce(onSetFilter, 500))
     // const [dynamicHref, setDynamicHref] = useState('');
 
 
@@ -100,13 +102,41 @@ export function BugIndex() {
 
     // }
 
-    const { txt, minSeverity, label } = filterBy
+    function onChangePageIdx(diff) {
+        if (isUndefined(filterBy.pageIdx)) return
+        setFilterBy(prevFilter => {
+            let newPageIdx = prevFilter.pageIdx + diff
+            if (newPageIdx < 0) newPageIdx = 0
+            return { ...prevFilter, pageIdx: newPageIdx }
+        })
+    }
+
+    function onTogglePagination() {
+        setFilterBy(prevFilter => {
+            return {
+                ...prevFilter,
+                pageIdx: isUndefined(prevFilter.pageIdx) ? 0 : undefined
+            }
+        })
+    }
+
+    function isUndefined(value) {
+        return value === undefined
+    }
+
+    const { txt, minSeverity, label, pageIdx } = filterBy
 
     return (
         <main>
             <h3>Bugs App</h3>
             <main className='bug-index'>
-                <BugFilter filterBy={{ txt, minSeverity, label }} onSetFilter={onSetFilter} onSetSortBy={onSetSortBy} onSetSortDir={onSetSortDir} sortBy={sortBy} sortDir={sortDir} />
+                <section className="pagination">
+                    <button onClick={() => onChangePageIdx(1)}>+</button>
+                    {pageIdx + 1 || 'No Pagination'}
+                    <button onClick={() => onChangePageIdx(-1)} >-</button>
+                    <button onClick={onTogglePagination}>Toggle pagination</button>
+                </section>
+                <BugFilter filterBy={{ txt, minSeverity, label }} onSetFilter={debounceOnSetFilter.current} onSetSortBy={onSetSortBy} onSetSortDir={onSetSortDir} sortBy={sortBy} sortDir={sortDir} />
                 <button className="add" onClick={onAddBug}>Add Bug ⛐</button>
                 {/* {<a href="#" onClick={onDowloadPDF} download="BugList.pdf">Download</a>} */}
 

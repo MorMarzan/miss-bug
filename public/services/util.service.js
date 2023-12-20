@@ -3,7 +3,9 @@ export const utilService = {
     makeLorem,
     getRandomIntInclusive,
     loadFromStorage,
-    saveToStorage
+    saveToStorage,
+    debounce,
+    formatDateTime
 }
 
 function makeId(length = 6) {
@@ -43,3 +45,32 @@ function saveToStorage(keyDB, val) {
     const valStr = JSON.stringify(val)
     localStorage.setItem(keyDB, valStr)
 }
+
+function debounce(fn, wait) {
+    let timer
+    return function (...args) {
+        if (timer) {
+            clearTimeout(timer) // clear any pre-existing timer
+        }
+        const context = this // get the current context
+        timer = setTimeout(() => {
+            fn.apply(context, args) // call the function if time expires
+        }, wait)
+    }
+}
+
+function formatDateTime(timestamp) {
+    const date = new Date(timestamp);
+  
+    if (isNaN(date)) {
+      return 'Invalid Timestamp';
+    }
+  
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = String(date.getFullYear()).slice(2);
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+  
+    return `${day}/${month}/${year} ${hours}:${minutes}`;
+  }
