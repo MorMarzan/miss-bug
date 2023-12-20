@@ -28,8 +28,8 @@ app.get('/api/bug', (req, res) => {
     }
 
     bugService.query(filterBy, sortBy, sortDir)
-        .then(bugs => {
-            res.send(bugs)
+        .then((bugs, maxPage) => {
+            res.send({bugs, maxPage})
         })
         .catch(err => {
             loggerService.error('Cannot get bugs', err)

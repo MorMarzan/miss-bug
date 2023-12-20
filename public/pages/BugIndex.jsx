@@ -21,7 +21,8 @@ export function BugIndex() {
 
     function loadBugs() {
         bugService.query(filterBy, sortBy, sortDir)
-            .then(setBugs)
+            .then(({bugs}) => setBugs(bugs))
+            // .then(setBugs)
             .catch(err => console.log('err:', err))
     }
 
@@ -130,17 +131,20 @@ export function BugIndex() {
         <main>
             <h3>Bugs App</h3>
             <main className='bug-index'>
+
                 <section className="pagination">
                     <button onClick={() => onChangePageIdx(1)}>+</button>
                     {pageIdx + 1 || 'No Pagination'}
                     <button onClick={() => onChangePageIdx(-1)} >-</button>
                     <button onClick={onTogglePagination}>Toggle pagination</button>
                 </section>
+
                 <BugFilter filterBy={{ txt, minSeverity, label }} onSetFilter={debounceOnSetFilter.current} onSetSortBy={onSetSortBy} onSetSortDir={onSetSortDir} sortBy={sortBy} sortDir={sortDir} />
                 <button className="add" onClick={onAddBug}>Add Bug ⛐</button>
                 {/* {<a href="#" onClick={onDowloadPDF} download="BugList.pdf">Download</a>} */}
 
                 <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />
+
             </main>
         </main>
     )

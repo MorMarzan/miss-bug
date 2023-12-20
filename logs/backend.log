@@ -186,3 +186,11 @@
 20.12.2023, 7:45:38 - INFO - Server listening on port http://127.0.0.1:3030/
 20.12.2023, 7:47:06 - INFO - Server listening on port http://127.0.0.1:3030/
 20.12.2023, 7:50:42 - INFO - Server listening on port http://127.0.0.1:3030/
+20.12.2023, 7:58:34 - INFO - Server listening on port http://127.0.0.1:3030/
+20.12.2023, 7:58:44 - INFO - Server listening on port http://127.0.0.1:3030/
+20.12.2023, 8:00:57 - INFO - Server listening on port http://127.0.0.1:3030/
+20.12.2023, 8:01:09 - INFO - Server listening on port http://127.0.0.1:3030/
+20.12.2023, 8:02:07 - INFO - Server listening on port http://127.0.0.1:3030/
+20.12.2023, 8:02:09 - ERROR - Cannot get bugs | RangeError [ERR_HTTP_INVALID_STATUS_CODE]: Invalid status code: [ [Object], [Object], [Object] ]
+20.12.2023, 8:02:09 - ERROR - Cannot get bugs | RangeError [ERR_HTTP_INVALID_STATUS_CODE]: Invalid status code: [ [Object], [Object], [Object] ]
+20.12.2023, 8:03:36 - INFO - Server listening on port http://127.0.0.1:3030/

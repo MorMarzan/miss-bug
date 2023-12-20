@@ -38,7 +38,8 @@ function query(filterBy, sortBy, sortDir) {
     if (sortBy === 'title') { //abc
         bugsToReturn.sort((b1, b2) => (b1.title.localeCompare(b2.title) * sortDir))
     }
-    return Promise.resolve(bugsToReturn)
+    const maxPage = Math.ceil(bugsToReturn / PAGE_SIZE)
+    return Promise.resolve(bugsToReturn, maxPage)
 }
 
 function getById(bugId) {
