@@ -156,6 +156,7 @@ app.delete('/api/user/:userId', (req, res) => {
     if (!loggedinUser || !loggedinUser.isAdmin) return res.status(401).send('Cannot remove user, admin only')
     console.log('loggedinUser',loggedinUser)
 
+    //here need need check if the user has car or not to allow deletion
     const { userId } = req.params
     userService.remove(userId)
         .then(() => res.send(userId))

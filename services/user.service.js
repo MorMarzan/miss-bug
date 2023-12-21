@@ -1,8 +1,10 @@
 import fs from 'fs'
 import Cryptr from 'cryptr'
 import { utilService } from './utils.service.js'
+import { bugService } from './bug.service.js'
 
-const cryptr = new Cryptr(process.env.SECRET1 || 'secret-puk-1234')
+const cryptr = new Cryptr(process.env.SECRET1 || 'bugs-super-secret-pass')
+// SECRET1=bugs-super-secret-pass - also in render.com
 
 const users = utilService.readJsonFile('data/user.json')
 
@@ -58,10 +60,6 @@ function getById(userId) {
 
 function remove(userId) {
     const userIdx = users.findIndex(user => user._id === userId)
-
-    // if (!loggedinUser.isAdmin) {
-    //     return Promise.reject('For admin only')
-    // }
 
     users.splice(userIdx, 1)
     return _saveUsersToFile()

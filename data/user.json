@@ -28,13 +28,6 @@
     "password": "pass"
   },
   {
-    "_id": "u105",
-    "fullname": "Suki La",
-    "username": "suki",
-    "isAdmin": false,
-    "password": "pass"
-  },
-  {
     "_id": "u106",
     "fullname": "Admin",
     "username": "admin",
