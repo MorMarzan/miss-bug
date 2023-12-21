@@ -17,7 +17,7 @@ export function UserDetails() {
     const [user, setUser] = useState(userService.getLoggedinUser())
     const [bugs, setBugs] = useState(null)
     // const intialFiterBy = (!user.isAdmin) ? {creatorId: user._id} : {}
-    const [filterBy, setFilterBy] = useState({creatorId: user._id})
+    const [filterBy, setFilterBy] = useState({ creatorId: user._id })
     // const [filterBy, setFilterBy] = useState(bugService.getDefaultFilter())
 
 
@@ -90,7 +90,7 @@ export function UserDetails() {
             {isAdmin && <p>You are Admin!</p>}
             <p>id: {_id}</p>
             <Link to="/bug">Back to List</Link>
-            <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} userBugIds={true}/>
+            {!user.isAdmin && <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} userBugIds={true} />}
         </section>
     )
 
