@@ -40,12 +40,5 @@
     "username": "admin",
     "isAdmin": true,
     "password": "admin"
-  },
-  {
-    "username": "Devush",
-    "password": "pass",
-    "fullname": "Dev Dav",
-    "_id": "964Tj",
-    "isAdmin": false
   }
 ]

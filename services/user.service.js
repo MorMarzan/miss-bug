@@ -33,7 +33,7 @@ function validateToken(token) {
 
 function checkLogin({ username, password }) {
     var user = users.find(user => (user.username === username && user.password === password))
-    console.log('user',user)
+    console.log('user', user)
     if (user) {
         user = {
             _id: user._id,
@@ -57,7 +57,13 @@ function getById(userId) {
 }
 
 function remove(userId) {
-    users = users.filter(user => user._id !== userId)
+    const userIdx = users.findIndex(user => user._id === userId)
+
+    // if (!loggedinUser.isAdmin) {
+    //     return Promise.reject('For admin only')
+    // }
+
+    users.splice(userIdx, 1)
     return _saveUsersToFile()
 }
 

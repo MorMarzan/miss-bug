@@ -150,6 +150,21 @@ app.get('/api/user', (req, res) => {
         })
 })
 
+// Remove user (DELETE)
+app.delete('/api/user/:userId', (req, res) => {
+    const loggedinUser = userService.validateToken(req.cookies.loginToken)
+    if (!loggedinUser || !loggedinUser.isAdmin) return res.status(401).send('Cannot remove user, admin only')
+    console.log('loggedinUser',loggedinUser)
+
+    const { userId } = req.params
+    userService.remove(userId)
+        .then(() => res.send(userId))
+        .catch((err) => {
+            loggerService.error('Cannot remove bug', err)
+            res.status(400).send('Cannot remove bug')
+        })
+})
+
 // check login, send cookie + mini user
 app.post('/api/auth/login', (req, res) => {
     //needs fullname, username, password check will be implement later
