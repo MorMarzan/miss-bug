@@ -46,6 +46,10 @@ export function BugIndex() {
             setUserBugIds([])
             return
         }
+        if (user.isAdmin){
+            setUserBugIds(true)
+            return
+        }
         bugService.query({creatorId: user._id})
             .then(({ bugs }) => {
                 const newUserBugIds = bugs.map(bug => bug._id)

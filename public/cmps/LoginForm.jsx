@@ -24,7 +24,7 @@ export function LoginForm({ onLogin, isSignup }) {
                 value={credentials.username}
                 placeholder="Username"
                 onChange={handleChange}
-                // required
+                required
                 autoFocus
             />
             <input
@@ -33,7 +33,7 @@ export function LoginForm({ onLogin, isSignup }) {
                 value={credentials.password}
                 placeholder="Password"
                 onChange={handleChange}
-                // required
+                required
                 autoComplete="off"
             />
             {isSignup && <input
@@ -42,7 +42,7 @@ export function LoginForm({ onLogin, isSignup }) {
                 value={credentials.fullname}
                 placeholder="Full name"
                 onChange={handleChange}
-                // required
+                required
             />}
             <button>{isSignup ? 'Signup' : 'Login'}</button>
         </form>

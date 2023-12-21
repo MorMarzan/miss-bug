@@ -138,7 +138,7 @@ app.delete('/api/bug/:bugId', (req, res) => {
 
 // AUTH API*****************************************
 
-// Get userss (READ)
+// Get users (READ)
 app.get('/api/user', (req, res) => {
     userService.query()
         .then((users) => {
@@ -163,6 +163,10 @@ app.post('/api/auth/login', (req, res) => {
             } else {
                 res.status(401).send('Invalid Credentials')
             }
+        })
+        .catch((err) => {
+            console.log('user or pass are incorrect', err)
+            res.status(400).send('user or pass are incorrect')
         })
 })
 

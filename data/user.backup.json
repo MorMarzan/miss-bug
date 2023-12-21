@@ -3,30 +3,42 @@
         "_id": "u101",
         "fullname": "Puki Ja",
         "username": "puki",
-        "isAdmin": false
+        "isAdmin": false,
+        "password": "pass"
     },
     {
         "_id": "u102",
         "fullname": "Muki Ra",
         "username": "muki",
-        "isAdmin": false
+        "isAdmin": false,
+        "password": "pass"
     },
     {
         "_id": "u103",
         "fullname": "Zuki Ta",
         "username": "zuki",
-        "isAdmin": false
+        "isAdmin": false,
+        "password": "pass"
     },
     {
         "_id": "u104",
         "fullname": "Luki Fa",
         "username": "luki",
-        "isAdmin": false
+        "isAdmin": false,
+        "password": "pass"
     },
     {
         "_id": "u105",
         "fullname": "Suki La",
         "username": "suki",
-        "isAdmin": false
+        "isAdmin": false,
+        "password": "pass"
+    },
+    {
+        "_id": "u106",
+        "fullname": "Admin",
+        "username": "admin",
+        "isAdmin": true,
+        "password": "admin"
     }
 ]
